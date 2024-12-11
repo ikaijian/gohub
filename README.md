@@ -123,42 +123,95 @@
 ├── Makefile                        // 自动化命令文件
 ├── readme.md                       // 项目 readme
 ~~~
-
-package main
+package config
 
 import (
-"flag"
-"fmt"
-"gohub/bootstrap"
-btsConfig "gohub/config"
 "gohub/pkg/config"
-
-    "github.com/gin-gonic/gin"
 )
 
 func init() {
-// 加载 config 目录下的配置信息
-btsConfig.Initialize()
+
+    config.Add("database", func() map[string]interface{} {
+        return map[string]interface{}{
+
+            // 默认数据库
+            "connection": config.Env("DB_CONNECTION", "mysql"),
+
+            "mysql": map[string]interface{}{
+
+                // 数据库连接信息
+                "host":     config.Env("DB_HOST", "127.0.0.1"),
+                "port":     config.Env("DB_PORT", "3306"),
+                "database": config.Env("DB_DATABASE", "gohub"),
+                "username": config.Env("DB_USERNAME", ""),
+                "password": config.Env("DB_PASSWORD", ""),
+                "charset":  "utf8mb4",
+
+                // 连接池配置
+                "max_idle_connections": config.Env("DB_MAX_IDLE_CONNECTIONS", 100),
+                "max_open_connections": config.Env("DB_MAX_OPEN_CONNECTIONS", 25),
+                "max_life_seconds":     config.Env("DB_MAX_LIFE_SECONDS", 5*60),
+            },
+
+
+            "sqlite": map[string]interface{}{
+                "database": config.Env("DB_SQL_FILE", "database/database.db"),
+            },
+        }
+    })
 }
 
-func main() {
+~~~go
+package bootstrap
 
-    // 配置初始化，依赖命令行 --env 参数
-    var env string
-    flag.StringVar(&env, "env", "", "加载 .env 文件，如 --env=testing 加载的是 .env.testing 文件")
-    flag.Parse()
-    config.InitConfig(env)
+import (
+	"errors"
+	"fmt"
+	"gohub/pkg/config"
+	"gohub/pkg/database"
+	"time"
 
-    // new 一个 Gin Engine 实例
-    router := gin.New()
+	"gorm.io/driver/mysql"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
+)
 
-    // 初始化路由绑定
-    bootstrap.SetupRoute(router)
+// SetupDB 初始化数据库和 ORM
+func SetupDB() {
 
-    // 运行服务
-    err := router.Run(":" + config.Get("app.port"))
-    if err != nil {
-        // 错误处理，端口被占用了或者其他错误
-        fmt.Println(err.Error())
-    }
+	var dbConfig gorm.Dialector
+	switch config.Get("database.connection") {
+	case "mysql":
+		// 构建 DSN 信息
+		dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=%v&parseTime=True&multiStatements=true&loc=Local",
+			config.Get("database.mysql.username"),
+			config.Get("database.mysql.password"),
+			config.Get("database.mysql.host"),
+			config.Get("database.mysql.port"),
+			config.Get("database.mysql.database"),
+			config.Get("database.mysql.charset"),
+		)
+		dbConfig = mysql.New(mysql.Config{
+			DSN: dsn,
+		})
+	case "sqlite":
+		// 初始化 sqlite
+		database := config.Get("database.sqlite.database")
+		dbConfig = sqlite.Open(database)
+	default:
+		panic(errors.New("database connection not supported"))
+	}
+
+	// 连接数据库，并设置 GORM 的日志模式
+	database.Connect(dbConfig, logger.Default.LogMode(logger.Info))
+
+	// 设置最大连接数
+	database.SQLDB.SetMaxOpenConns(config.GetInt("database.mysql.max_open_connections"))
+	// 设置最大空闲连接数
+	database.SQLDB.SetMaxIdleConns(config.GetInt("database.mysql.max_idle_connections"))
+	// 设置每个链接的过期时间
+	database.SQLDB.SetConnMaxLifetime(time.Duration(config.GetInt("database.mysql.max_life_seconds")) * time.Second)
 }
+
+~~~
