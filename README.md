@@ -125,41 +125,93 @@
 ~~~
 
 ~~~go
-.
-.
-.
+// Package requests 处理请求数据和表单验证
+package requests
+
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/thedevsaddam/govalidator"
+)
+
+type SignupPhoneExistRequest struct {
+	Phone string `json:"phone,omitempty" valid:"phone"`
+}
+
+func SignupPhoneExist(data interface{}, c *gin.Context) map[string][]string {
+	// 自定义验证规则
+	rules := govalidator.MapData{
+		"phone": []string{"required", "digits:11"},
+	}
+	// 自定义验证出错时的提示
+	messages := govalidator.MapData{
+		"phone": []string{
+			"required:手机号为必填项，参数名称 phone",
+			"digits:手机号长度必须为 11 位的数字",
+		},
+	}
+	return validate(data, rules, messages)
+}
+
+type SignupEmailExistRequest struct {
+	Email string `json:"email,omitempty" valid:"email"`
+}
+
+func SignupEmailExist(data interface{}, c *gin.Context) map[string][]string {
+	// 自定义验证规则
+	rules := govalidator.MapData{
+		"email": []string{"required", "min:4", "max:30", "email"},
+	}
+	// 自定义验证出错时的提示
+	messages := govalidator.MapData{
+		"email": []string{
+			"required:Email 为必填项",
+			"min:Email 长度需大于 4",
+			"max:Email 长度需小于 30",
+			"email:Email 格式不正确，请提供有效的邮箱地址",
+		},
+	}
+	return validate(data, rules, messages)
+}
+
+// Package auth 处理用户身份认证相关逻辑
+package auth
+
+import (
+	v1 "gohub/app/http/controllers/api/v1"
+	"gohub/app/models/user"
+	"gohub/app/requests"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
+
+// SignupController 注册控制器
+type SignupController struct {
+	v1.BaseAPIController
+}
+
+// IsPhoneExist 检测手机号是否被注册
+func (sc *SignupController) IsPhoneExist(c *gin.Context) {
+	// 获取请求参数，并做表单验证
+	request := requests.SignupPhoneExistRequest{}
+	if ok := requests.Validate(c, &request, requests.SignupPhoneExist); !ok {
+		return
+	}
+
+	//  检查数据库并返回响应
+	c.JSON(http.StatusOK, gin.H{
+		"exist": user.IsPhoneExist(request.Phone),
+	})
+}
+
 // IsEmailExist 检测邮箱是否已注册
 func (sc *SignupController) IsEmailExist(c *gin.Context) {
-
-// 初始化请求对象
-request := requests.SignupEmailExistRequest{}
-
-// 解析 JSON 请求
-if err := c.ShouldBindJSON(&request); err != nil {
-// 解析失败，返回 422 状态码和错误信息
-c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
-"error": err.Error(),
-})
-// 打印错误信息
-fmt.Println(err.Error())
-// 出错了，中断请求
-return
-}
-
-// 表单验证
-errs := requests.ValidateSignupEmailExist(&request, c)
-// errs 返回长度等于零即通过，大于 0 即有错误发生
-if len(errs) > 0 {
-// 验证失败，返回 422 状态码和错误信息
-c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
-"errors": errs,
-})
-return
-}
-
-//  检查数据库并返回响应
-c.JSON(http.StatusOK, gin.H{
-"exist": user.IsEmailExist(request.Email),
-})
+	request := requests.SignupEmailExistRequest{}
+	if ok := requests.Validate(c, &request, requests.SignupEmailExist); !ok {
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"exist": user.IsEmailExist(request.Email),
+	})
 }
 ~~~
