@@ -27,6 +27,8 @@ func main() {
 	bootstrap.SetupDB()
 	// 初始化路由
 	bootstrap.SetupRoute(router)
+	// 初始化 Logger
+	bootstrap.SetupLogger()
 
 	// 运行服务
 	err := router.Run(":" + config.Get("app.port"))
