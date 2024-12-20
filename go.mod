@@ -5,6 +5,7 @@ go 1.23.4
 require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-redis/redis/v8 v8.11.5
+	github.com/mojocn/base64Captcha v1.3.6
 	github.com/spf13/cast v1.7.0
 	github.com/spf13/viper v1.19.0
 	github.com/thedevsaddam/govalidator v1.9.10
@@ -43,7 +44,6 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	github.com/mojocn/base64Captcha v1.3.6 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
