@@ -10,6 +10,7 @@ type SignupPhoneExistRequest struct {
 }
 
 // SignupPhoneExist 验证手机号
+
 func SignupPhoneExist(data interface{}, c *gin.Context) map[string][]string {
 	// 自定义验证规则
 	rules := govalidator.MapData{
@@ -32,6 +33,7 @@ type SignupEmailExistRequest struct {
 }
 
 // SignupEmailExist 验证邮箱
+
 func SignupEmailExist(data interface{}, c *gin.Context) map[string][]string {
 	// 自定义验证规则
 	rules := govalidator.MapData{

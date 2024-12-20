@@ -1,3 +1,4 @@
+// Package requests 处理请求数据和表单验证
 package requests
 
 import (
@@ -7,16 +8,10 @@ import (
 	"net/http"
 )
 
-// Package requests 处理请求数据和表单验证
-
 // ValidatorFunc 验证函数类型
 type ValidatorFunc func(interface{}, *gin.Context) map[string][]string
 
-// Validate 控制器里调用示例：
-//
-//	if ok := requests.Validate(c, &requests.UserSaveRequest{}, requests.UserSave); !ok {
-//	    return
-//	}
+// Validate 控制器里调用
 func Validate(c *gin.Context, obj interface{}, handler ValidatorFunc) bool {
 	// 1. 解析请求，支持 JSON 数据、表单请求和 URL Query
 	if err := c.ShouldBind(obj); err != nil {

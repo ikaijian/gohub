@@ -4,13 +4,14 @@ package logger
 import (
 	"encoding/json"
 	"fmt"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 	"gohub/pkg/app"
-	"gopkg.in/natefinch/lumberjack.v2"
 	"os"
 	"strings"
 	"time"
+
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 // Logger 全局 Logger 对象
@@ -49,15 +50,15 @@ func getEncoder() zapcore.Encoder {
 		TimeKey:        "time",
 		LevelKey:       "level",
 		NameKey:        "logger",
-		CallerKey:      "caller",
+		CallerKey:      "caller", // 代码调用，如 paginator/paginator.go:148
 		FunctionKey:    zapcore.OmitKey,
 		MessageKey:     "message",
 		StacktraceKey:  "stacktrace",
-		LineEnding:     zapcore.DefaultLineEnding,
-		EncodeLevel:    zapcore.CapitalColorLevelEncoder,
-		EncodeTime:     customTimeEncoder,
-		EncodeDuration: zapcore.SecondsDurationEncoder,
-		EncodeCaller:   zapcore.ShortCallerEncoder,
+		LineEnding:     zapcore.DefaultLineEnding,      // 每行日志的结尾添加 "\n"
+		EncodeLevel:    zapcore.CapitalLevelEncoder,    // 日志级别名称大写，如 ERROR、INFO
+		EncodeTime:     customTimeEncoder,              // 时间格式，我们自定义为 2006-01-02 15:04:05
+		EncodeDuration: zapcore.SecondsDurationEncoder, // 执行时间，以秒为单位
+		EncodeCaller:   zapcore.ShortCallerEncoder,     // Caller 短格式，如：types/converter.go:17，长格式为绝对路径
 	}
 	// 本地环境配置
 	if app.IsLocal() {
@@ -65,6 +66,7 @@ func getEncoder() zapcore.Encoder {
 		// 本地设置内置的 Console 解码器（支持 stacktrace 换行）
 		return zapcore.NewConsoleEncoder(encoderConfig)
 	}
+
 	// 线上环境使用 JSON 编码器
 	return zapcore.NewJSONEncoder(encoderConfig)
 }

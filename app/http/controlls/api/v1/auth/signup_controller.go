@@ -25,6 +25,7 @@ func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 	})
 }
 
+// IsEmailExist 检测邮箱是否已注册
 func (sc *SignupController) IsEmailExist(c *gin.Context) {
 	// 请求对象
 	request := requests.SignupEmailExistRequest{}
@@ -32,7 +33,7 @@ func (sc *SignupController) IsEmailExist(c *gin.Context) {
 		return
 	}
 
-	//  检查数据库并返回响应
+	//  返回响应
 	c.JSON(http.StatusOK, gin.H{
 		"exist": user.IsEmailExist(request.Email),
 	})

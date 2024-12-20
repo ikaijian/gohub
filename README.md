@@ -125,16 +125,5 @@
 ~~~
 
 ~~~go
-.
-.
-.
-func registerGlobalMiddleWare(router *gin.Engine) {
-router.Use(
-middlewares.Logger(),
-gin.Recovery(),
-)
-}
-.
-.
-.
+
 ~~~
