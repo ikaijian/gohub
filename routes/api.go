@@ -15,7 +15,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 				"Hello": "World!",
 			})
 		})
-
+		// 用户授权
 		authGroup := v1.Group("/auth")
 		{
 			suc := new(auth.SignupController)
@@ -24,5 +24,15 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			// 判断手机是否已注册
 			authGroup.POST("/signup/email/exist", suc.IsEmailExist)
 		}
+
+		// 发送验证码
+		vcc := new(auth.VerifyCodeController)
+
+		codeGroup := v1.Group("/captcha")
+		{
+			// 图片验证码，需要加限流
+			codeGroup.POST("/verify/captcha", vcc.ShowCaptcha)
+		}
 	}
+
 }

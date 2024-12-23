@@ -1,11 +1,13 @@
+// Package redis 工具包
 package redis
 
 import (
 	"context"
-	"github.com/go-redis/redis/v8"
 	"gohub/pkg/logger"
 	"sync"
 	"time"
+
+	redis "github.com/go-redis/redis/v8"
 )
 
 // RedisClient Redis 服务
@@ -29,6 +31,7 @@ func ConnectRedis(address string, username string, password string, db int) {
 
 // NewClient 创建一个新的 redis 连接
 func NewClient(address string, username string, password string, db int) *RedisClient {
+
 	// 初始化自定的 RedisClient 实例
 	rds := &RedisClient{}
 	// 使用默认的 context
@@ -41,6 +44,7 @@ func NewClient(address string, username string, password string, db int) *RedisC
 		Password: password,
 		DB:       db,
 	})
+
 	// 测试一下连接
 	err := rds.Ping()
 	logger.LogIf(err)
@@ -49,7 +53,7 @@ func NewClient(address string, username string, password string, db int) *RedisC
 }
 
 // Ping 用以测试 redis 连接是否正常
-func (rds *RedisClient) Ping() error {
+func (rds RedisClient) Ping() error {
 	_, err := rds.Client.Ping(rds.Context).Result()
 	return err
 }

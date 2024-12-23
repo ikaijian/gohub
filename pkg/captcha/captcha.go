@@ -43,6 +43,7 @@ func NewCaptcha() *Captcha {
 		// 实例化 base64Captcha 并赋值给内部使用的 internalCaptcha 对象
 		internalCaptcha.Base64Captcha = base64Captcha.NewCaptcha(driver, &store)
 	})
+
 	return internalCaptcha
 }
 
