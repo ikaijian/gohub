@@ -129,13 +129,11 @@
 .
 .
 .
-authGroup.POST("/signup/email/exist", suc.IsEmailExist)
-
-// 发送验证码
-vcc := new(auth.VerifyCodeController)
-// 图片验证码，需要加限流
-authGroup.POST("/verify-codes/captcha", vcc.ShowCaptcha)
+// 返回 500 状态码
+response.Abort500(c)
 }
+}()
+c.Next()
 }
 }
 ~~~

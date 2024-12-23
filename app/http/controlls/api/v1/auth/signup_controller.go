@@ -5,7 +5,7 @@ import (
 	v1 "gohub/app/http/controlls/api/v1"
 	"gohub/app/models/user"
 	"gohub/app/requests"
-	"net/http"
+	"gohub/pkg/response"
 )
 
 type SignupController struct {
@@ -20,7 +20,7 @@ func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
+	response.JSON(c, gin.H{
 		"exist": user.IsPhoneExist(request.Phone),
 	})
 }
@@ -34,7 +34,7 @@ func (sc *SignupController) IsEmailExist(c *gin.Context) {
 	}
 
 	//  返回响应
-	c.JSON(http.StatusOK, gin.H{
+	response.JSON(c, gin.H{
 		"exist": user.IsEmailExist(request.Email),
 	})
 }
