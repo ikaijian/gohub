@@ -30,6 +30,8 @@ func main() {
 	bootstrap.SetupRedis()
 	// 初始化路由
 	bootstrap.SetupRoute(router)
+	// 测试 验证码
+	//verifycode.NewVerifyCode().SendSMS("18312839530")
 
 	// 设置 gin 的运行模式，支持 debug, release, test
 	// release 会屏蔽调试信息，官方建议生产环境中使用
