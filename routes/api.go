@@ -32,6 +32,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		{
 			// 图片验证码，需要加限流
 			codeGroup.POST("/verify/captcha", vcc.ShowCaptcha)
+			codeGroup.POST("/verify/phone", vcc.SendUsingPhone)
 		}
 	}
 
