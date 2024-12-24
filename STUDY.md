@@ -105,5 +105,59 @@ Mac、Windows 和 Linux。
 - zap 高性能日志的使用；
 - 使用 zap 记录 HTTP 访问日志；
 - Panic Recovery 方案；
-- 自定义 Gorm Logger。
+- 自定义 Gorm Logger
+
+### 第六章 图片验证码
+
++ 图片验证码与数字验证码的区别；
++ 图片验证码的流程；
++ 使用 Redis；
++ 使用 logger.Dump() 方法调试；
++ 使用 Postman 环境变量；
++ response 库统一响应格式；
++ 使用『多变参数』实现函数『参数默认值』；
++ 功能模块与底层库之间的错误处理实践
+
+#### base64图片在线转换工具
+
+[base64图片在线转换](https://tool.chinaz.com/tools/imgtobase)
+
+##### 安装
+
+~~~
+go install github.com/mailhog/MailHog@latest
+~~~
+
+### 第七章 数字验证码
+
++ 使用阿里短信平台的测试账号；
++ 发短信的四个要素；
++ 使用 interface 来抽象 sms 包的驱动；
++ 短信验证码发送和验证流程；
++ 发送短信；
++ 验证码使用 interface 来抽象存储驱动；
++ 发送短信验证码；
++ 使用 sync.Once 实现单例模式；
++ Mailhog 邮件测试服务；
++ 使用 interface 来抽象 mail 包发邮件驱动；
++ 发送 SMTP 邮件；
++ 发送邮件验证码
+
+#### Mailhog工具
+
+##### 安装
+
+~~~
+go install github.com/mailhog/MailHog@latest
+~~~
+
+##### 启动
+
+~~~
+MailHog
+~~~
+
+以上输出有两个比较重要的信息：
+0.0.0.0:1025 是 SMTP 端口
+0.0.0.0:8025/ 是网页界面
 
