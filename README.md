@@ -125,26 +125,29 @@
 ├── readme.md                       // 项目 readme
 ~~~
 
-driver_aliyun.go 文件，其中结果日志我是写到 mysql 表里了
-
 ~~~go
-.
-.
-.
-// SendUsingPhone 发送手机验证码
-func (vc *VerifyCodeController) SendUsingPhone(c *gin.Context) {
+// Package config 站点配置信息
+package config
 
-// 1. 验证表单
-request := requests.VerifyCodePhoneRequest{}
-if ok := requests.Validate(c, &request, requests.VerifyCodePhone); !ok {
-return
-}
+import "gohub/pkg/config"
 
-// 2. 发送 SMS
-if ok := verifycode.NewVerifyCode().SendSMS(request.Phone); !ok {
-response.Abort500(c, "发送短信失败~")
-} else {
-response.Success(c)
-}
+func init() {
+	config.Add("mail", func() map[string]interface{} {
+		return map[string]interface{}{
+
+			// 默认是 Mailhog 的配置
+			"smtp": map[string]interface{}{
+				"host":     config.Env("MAIL_HOST", "localhost"),
+				"port":     config.Env("MAIL_PORT", 1025),
+				"username": config.Env("MAIL_USERNAME", ""),
+				"password": config.Env("MAIL_PASSWORD", ""),
+			},
+
+			"from": map[string]interface{}{
+				"address": config.Env("MAIL_FROM_ADDRESS", "gohub@example.com"),
+				"name":    config.Env("MAIL_FROM_NAME", "Gohub"),
+			},
+		}
+	})
 }
 ~~~
