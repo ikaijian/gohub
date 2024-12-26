@@ -48,9 +48,21 @@ func (lc *LoginController) LoginByPassword(c *gin.Context) {
 		// 失败，显示错误提示
 		response.Unauthorized(c, "账号不存在或密码错误")
 	} else {
-		token := jwt.NewJWT().IssueToken(user.GetStringID(), user.Name)
+		accessToken := jwt.NewJWT().IssueToken(user.GetStringID(), user.Name)
 		response.JSON(c, gin.H{
-			"token": token,
+			"access_token": accessToken,
+		})
+	}
+}
+
+// RefreshToken 刷新 Access Token
+func (lc *LoginController) RefreshToken(c *gin.Context) {
+	accessToken, err := jwt.NewJWT().RefreshToken(c)
+	if err != nil {
+		response.Error(c, err, "令牌刷新失败")
+	} else {
+		response.JSON(c, gin.H{
+			"access_token": accessToken,
 		})
 	}
 }
