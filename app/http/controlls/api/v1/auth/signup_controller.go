@@ -5,6 +5,7 @@ import (
 	v1 "gohub/app/http/controlls/api/v1"
 	"gohub/app/models/user"
 	"gohub/app/requests"
+	"gohub/pkg/jwt"
 	"gohub/pkg/response"
 )
 
@@ -48,16 +49,18 @@ func (sc *SignupController) SignupUsingPhone(c *gin.Context) {
 	}
 
 	// 验证成功，创建数据
-	_user := user.User{
+	userModel := user.User{
 		Name:     request.Name,
 		Phone:    request.Phone,
 		Password: request.Password,
 	}
 	// 创建用户
-	_user.Create()
-	if _user.ID > 0 {
+	userModel.Create()
+	if userModel.ID > 0 {
+		accessToken := jwt.NewJWT().IssueToken(userModel.GetStringID(), userModel.Name)
 		response.CreatedJSON(c, gin.H{
-			"data": _user,
+			"access_token": accessToken,
+			"data":         userModel,
 		})
 	} else {
 		response.Abort500(c, "创建用户失败，请稍后尝试~")
@@ -80,8 +83,10 @@ func (sc *SignupController) SignupUsingEmail(c *gin.Context) {
 	userModel.Create()
 
 	if userModel.ID > 0 {
+		accessToken := jwt.NewJWT().IssueToken(userModel.GetStringID(), userModel.Name)
 		response.CreatedJSON(c, gin.H{
-			"data": userModel,
+			"access_token": accessToken,
+			"data":         userModel,
 		})
 	} else {
 		response.Abort500(c, "创建用户失败，请稍后尝试~")
