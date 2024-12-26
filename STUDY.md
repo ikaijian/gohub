@@ -176,3 +176,23 @@ MailHog
 + [govalidator 的验证规则](https://github.com/thedevsaddam/govalidator)
 + [JWT](https://jwt.io/introduction/)
 
+### 第九章 用户登录
+
++ 用来管理身份认证的的 auth 包；
++ 使用手机号 + 验证短信登录用户；
++ 使用密码登录，支持手机号、用户名、邮箱；
++ 使用 GORM 发送 Where Or 请求；
++ 登录成功后签发 JWT Token；
++ JWT Token 刷新；
++ 解码 JWT Token，分析里面的三段信息以及安全性；
++ 使用 Postman 发起 Authorization:Bearer xxxxx 标头的请求；
++ Auth 中间件，授权才能操作；
++ Guest 中间件，只允许游客操作；
+
+#### 推荐学习资料：
+
++ [自定义中间件《Gin 框架中文文档》](https://learnku.com/docs/gin-gonic/1.7/examples-custom-middleware/11395)
++ [在中间件中使用 Goroutine](https://learnku.com/docs/gin-gonic/1.7/examples-goroutines-inside-a-middleware/11381)
++ [使用 BasicAuth 中间件](https://learnku.com/docs/gin-gonic/1.7/examples-using-basicauth-middleware/11377)
++ [使用中间件《Gin 框架中文文档》](https://learnku.com/docs/gin-gonic/1.7/examples-using-middleware/11379)
++ [不使用默认的中间件《Gin 框架中文文档》](https://learnku.com/docs/gin-gonic/1.7/examples-without-middleware/11374)
