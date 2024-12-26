@@ -159,5 +159,20 @@ MailHog
 
 以上输出有两个比较重要的信息：
 0.0.0.0:1025 是 SMTP 端口
-0.0.0.0:8025/ 是网页界面
+127.0.0.1:8025/ 是网页界面
+
+### 第八章 用户注册
+
++ 用户注册信息的验证；
++ 自定义 not_exists 规则；
++ 自定义验证器；
++ 使用测试手机号和测试邮件进行注册；
++ 密码加密和匹对；
++ JWT 创建 token ；
++ 使用通用时区；
+
+#### 推荐学习资料：
+
++ [govalidator 的验证规则](https://github.com/thedevsaddam/govalidator)
++ [JWT](https://jwt.io/introduction/)
 
