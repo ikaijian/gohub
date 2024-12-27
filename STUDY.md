@@ -205,3 +205,30 @@ MailHog
 + 针对单个路由的限流；
 + 使用 Postman 查看 Header 信息；
 + AuthJWT 和 GuestJWT 的使用
+
+### 第十一章 命令行模式
+
+#### 本章知识点：
+
++ 命令组成的四个部分；
++ 参数（args） 与选项（flag）的区别；
++ 长选项与短选项的区别（–env -e）
++ 最佳实践：终端英文输出
++ Cobra 与 Cli 的选择；
++ cobra.Command 所有选项的学习；
++ cobra 的命令钩子；
++ 终端打印高亮信息；
++ 创建 cobra 主命令；
++ 生成随机字符串；
++ key 命令；
++ cobra 的参数校验器；
++ 类似于 go.dev/play/ 的 play 命令；
+
+#### 推荐学习资料：
+
++ [cobra 官方指南](github.com/spf13/cobra/blob/master)
++ [pflag](github.com/spf13/pflag) 项目也需要了解一下
++ 另外一个[知名项目](cli github.com/urfave/cli)
++ 代码高亮的两个库了解一下
++ [ansi](github.com/mgutz/ansi)
++ [color](github.com/fatih/color)
