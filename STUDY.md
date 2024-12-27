@@ -196,3 +196,12 @@ MailHog
 + [使用 BasicAuth 中间件](https://learnku.com/docs/gin-gonic/1.7/examples-using-basicauth-middleware/11377)
 + [使用中间件《Gin 框架中文文档》](https://learnku.com/docs/gin-gonic/1.7/examples-using-middleware/11379)
 + [不使用默认的中间件《Gin 框架中文文档》](https://learnku.com/docs/gin-gonic/1.7/examples-without-middleware/11374)
+
+### 第十章 找回密码
+
++ 通过手机号找回密码；
++ 通过邮箱找回密码；
++ 全局限流中间件；
++ 针对单个路由的限流；
++ 使用 Postman 查看 Header 信息；
++ AuthJWT 和 GuestJWT 的使用
