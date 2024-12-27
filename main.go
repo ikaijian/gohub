@@ -42,6 +42,7 @@ func main() {
 			// 初始化缓存
 		},
 	}
+
 	// 注册子命令
 	rootCmd.AddCommand(
 		cmd.CmdServe,
