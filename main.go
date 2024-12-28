@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"github.com/spf13/cobra"
 	"gohub/app/cmd"
 	"gohub/app/cmd/make"
@@ -58,10 +57,7 @@ func main() {
 
 	// 注册全局参数，--env
 	cmd.RegisterGlobalFlags(rootCmd)
-
-	router := gin.New()
-	// 初始化路由
-	bootstrap.SetupRoute(router)
+	
 	// 执行主命令
 	if err := rootCmd.Execute(); err != nil {
 		console.Exit(fmt.Sprintf("Failed to run app with %v: %s", os.Args, err.Error()))
