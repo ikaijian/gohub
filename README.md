@@ -9,6 +9,7 @@
 + 话题
 
 #### 第三方依赖
+
 使用到的开源库：
 
 + [gin](https://github.com/gin-gonic/gin) —— 路由、路由组、中间件
@@ -31,7 +32,9 @@
 + [imaging](https://learnku.com/courses/go-api/1.19/finish-up/github.com/disintegration/imaging) —— 图片裁切
 
 ### 第二章 环境搭建
+
 #### 本章知识点
+
 请参考以下这几个视频教程来配置环境：
 
 + [Go 开发环境配置（Windows 10）](https://learnku.com/courses/go-video/2022/go-development-environment-configuration-windows-10/11304)
@@ -53,7 +56,9 @@ Mac、Windows 和 Linux。
 推荐使用 [TablePlus](https://tableplus.com/) ，跨平台，支持 Mac、Windows 和 Linux。
 
 ### 第三章 开始编码
+
 #### 本章知识点
+
 - git init 初始化版本控制
 - go mod init 初始化项目
 - 通用的 Go 项目 .gitignore 文件
@@ -70,7 +75,9 @@ Mac、Windows 和 Linux。
 - 利用 reflect 标准库构建 Empty() 方法
 
 ### 第四章 手机或邮箱是否注册
+
 #### 本章知识点
+
 - 登录流程
 - 注册流程
 - 找回密码流程
@@ -231,4 +238,24 @@ MailHog
 + 代码高亮的两个库了解一下
 + [ansi](github.com/mgutz/ansi)
 + [color](github.com/fatih/color)
+
+### 第十二章 Make命令
+
+#### 本章知识点：
+
++ 代码生成的逻辑（模板、变量替换）；
++ str 包，大小写处理，单复数处理；
++ 文件读写；
++ 创建目录；
++ 使用 Go 的 embed 功能；
++ make cmd 命令；
++ make model 命令；
++ make apicontroller 命令；
++ make request 命令；
+
+#### 推荐学习
+
+钩子[《GORM 中文文档》](https://learnku.com/docs/gorm/v2/hooks/9744)
+
+
 
