@@ -33,5 +33,5 @@ func init() {
 		migrator.DropTable(&Sms{})
 	}
 
-	migrate.Add("2024_12_28_134631_add_sms_table", up, down)
+	migrate.Add("2024_12_28_142247_add_sms_table", up, down)
 }
