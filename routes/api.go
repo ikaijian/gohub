@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"gohub/app/http/controlls/api/v1/auth"
+	"gohub/app/http/controllers/api/v1/auth"
 	"gohub/app/middlewares"
 	"net/http"
 )
