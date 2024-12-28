@@ -67,32 +67,17 @@ func (migrator *Migrator) Up() {
 
 	// 对迁移文件进行遍历，如果没有执行过，就执行 up 回调
 	for _, mfile := range migrateFiles {
+
 		// 对比文件名称，看是否已经运行过
 		if mfile.isNotMigrated(migrations) {
 			migrator.runUpMigration(mfile, batch)
 			runed = true
 		}
 	}
+
 	if !runed {
 		console.Success("database is up to date.")
 	}
-
-}
-
-// 执行迁移，执行迁移的 up 方法
-func (migrator *Migrator) runUpMigration(mfile MigrationFile, batch int) {
-	// 执行 up 区块的 SQL
-	if mfile.Up != nil {
-		// 友好提示
-		console.Warning("migrating " + mfile.FileName)
-		// 执行 up 方法
-		mfile.Up(database.DB.Migrator(), database.SQLDB)
-		// 提示已迁移了哪个文件
-		console.Success("migrated " + mfile.FileName)
-	}
-	// 入库
-	err := migrator.DB.Create(&Migration{Migration: mfile.FileName, Batch: batch}).Error
-	console.ExitIf(err)
 }
 
 // 获取当前这个批次的值
@@ -113,6 +98,7 @@ func (migrator *Migrator) getBatch() int {
 
 // 从文件目录读取文件，保证正确的时间排序
 func (migrator *Migrator) readAllMigrationFiles() []MigrationFile {
+
 	// 读取 database/migrations/ 目录下的所有文件
 	// 默认是会按照文件名称进行排序
 	files, err := os.ReadDir(migrator.Folder)
@@ -120,6 +106,7 @@ func (migrator *Migrator) readAllMigrationFiles() []MigrationFile {
 
 	var migrateFiles []MigrationFile
 	for _, f := range files {
+
 		// 去除文件后缀 .go
 		fileName := file.FileNameWithoutExtension(f.Name())
 
@@ -128,10 +115,28 @@ func (migrator *Migrator) readAllMigrationFiles() []MigrationFile {
 
 		// 加个判断，确保迁移文件可用，再放进 migrateFiles 数组中
 		if len(mfile.FileName) > 0 {
-			migrationFiles = append(migrateFiles, mfile)
+			migrateFiles = append(migrateFiles, mfile)
 		}
 	}
 
 	// 返回排序好的『MigrationFile』数组
 	return migrateFiles
+}
+
+// 执行迁移，执行迁移的 up 方法
+func (migrator *Migrator) runUpMigration(mfile MigrationFile, batch int) {
+
+	// 执行 up 区块的 SQL
+	if mfile.Up != nil {
+		// 友好提示
+		console.Warning("migrating " + mfile.FileName)
+		// 执行 up 方法
+		mfile.Up(database.DB.Migrator(), database.SQLDB)
+		// 提示已迁移了哪个文件
+		console.Success("migrated " + mfile.FileName)
+	}
+
+	// 入库
+	err := migrator.DB.Create(&Migration{Migration: mfile.FileName, Batch: batch}).Error
+	console.ExitIf(err)
 }
