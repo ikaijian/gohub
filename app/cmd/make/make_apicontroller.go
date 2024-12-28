@@ -11,7 +11,7 @@ import (
 
 var CmdMakeAPIController = &cobra.Command{
 	Use:   "controller",
-	Short: "Create api controller，exmaple: make apicontroller v1/user",
+	Short: "Create api controller，exmaple: make controller users v1/users",
 	Run:   runMakeAPIController,
 	Args:  cobra.ExactArgs(2), // 只允许且必须传 1 个参数
 }

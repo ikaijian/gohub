@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"gohub/app/http/controllers/api/v1/auth"
+	controllers "gohub/app/http/controllers/api/v1/user"
 	"gohub/app/middlewares"
 	"net/http"
 )
@@ -59,6 +60,10 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			codeGroup.POST("/verify-codes/email", middlewares.LimitPerRoute("50-H"), vcc.SendUsingEmail)
 		}
 
+		// 用户
+		uc := new(controllers.UsersController)
+		// 获取当前用户
+		v1.GET("/user", middlewares.AuthJWT(), uc.CurrentUser)
 	}
 
 }
