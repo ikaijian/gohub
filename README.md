@@ -257,5 +257,20 @@ MailHog
 
 钩子[《GORM 中文文档》](https://learnku.com/docs/gorm/v2/hooks/9744)
 
+### 第十二章 数据库迁移
+
+#### 本章知识点：
++ 数据库迁移方案的设计；
++ 使用 Gorm 的 migrator 对象；
++ migrate up 命令；
++ migrate down 命令；
++ migrate reset 命令；
++ migrate refresh 命令；
++ migrate fresh 命令；
++ MySQL 删除数据库；
++ Sqlite 删除所有数据表；
++ 使用 Gorm 的 migrator drop table；
+#### 推荐资料：
++ [数据库迁移《GORM 中文文档》](https://learnku.com/docs/gorm/v2/migration/9746)
 
 

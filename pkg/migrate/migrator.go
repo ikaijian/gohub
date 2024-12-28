@@ -16,13 +16,6 @@ type Migrator struct {
 	Migrator gorm.Migrator
 }
 
-// Migration 对应数据的 migrations 表里的一条数据
-type Migration struct {
-	ID        uint64 `gorm:"primaryKey;autoIncrement;"`
-	Migration string `gorm:"type:varchar(255);not null;unique;"`
-	Batch     int
-}
-
 // NewMigrator 创建 Migrator 实例，用以执行迁移操作
 func NewMigrator() *Migrator {
 
@@ -83,11 +76,8 @@ func (migrator *Migrator) Up() {
 // Rollback 回滚上一个操作
 func (migrator *Migrator) Rollback() {
 	// 获取最后一批次的迁移数据
-	lastMigration := Migration{}
-	migrator.DB.Order("id DESC").First(&lastMigration)
-	migrations := []Migration{}
-	migrator.DB.Where("batch = ?", lastMigration.Batch).Order("id DESC").Find(&migrations)
-
+	lastMigration := getLastMigration()
+	migrations := getByBatch(lastMigration.Batch)
 	// 回滚最后一批次的迁移
 	if !migrator.rollbackMigrations(migrations) {
 		console.Success("[migrations] table is empty, nothing to rollback.")
@@ -122,11 +112,9 @@ func (migrator *Migrator) rollbackMigrations(migrations []Migration) bool {
 
 // Reset 回滚所有迁移
 func (migrator *Migrator) Reset() {
-	migrations := []Migration{}
 
 	// 按照倒序读取所有迁移文件
-	migrator.DB.Order("id DESC").Find(&migrations)
-
+	migrations := getLastMigrationFind()
 	// 回滚所有迁移
 	if !migrator.rollbackMigrations(migrations) {
 		console.Success("[migrations] table is empty, nothing to reset.")
@@ -165,9 +153,7 @@ func (migrator *Migrator) getBatch() int {
 	batch := 1
 
 	// 取最后执行的一条迁移数据
-	lastMigration := Migration{}
-	migrator.DB.Order("id DESC").First(&lastMigration)
-
+	lastMigration := getLastMigration()
 	// 如果有值的话，加一
 	if lastMigration.ID > 0 {
 		batch = lastMigration.Batch + 1
