@@ -278,4 +278,15 @@ MailHog
 
 + [数据库迁移《GORM 中文文档》](https://learnku.com/docs/gorm/v2/migration/9746)
 
+### 第十三章 分类
+
+#### 本章知识点：
+
++ 使用 make model 创建模型；
++ 使用 make factory 创建分类工厂；
++ 使用 make seed 创建分类填充；
++ 使用 seed 命令填充数据；
++ 使用 make apicontroller 创建控制器；
++ 开发分类 CRUD 接口。
+
 
