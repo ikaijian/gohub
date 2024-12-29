@@ -98,3 +98,11 @@ func deleteAllSqliteTables() error {
 	}
 	return nil
 }
+
+// TableName 获取数据表名称
+func TableName(obj interface{}) string {
+	stmt := &gorm.Statement{DB: DB}
+	stmt.Parse(obj)
+
+	return stmt.Schema.Table
+}
