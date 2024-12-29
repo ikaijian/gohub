@@ -9,7 +9,7 @@ import (
 
 var CmdMakeMigration = &cobra.Command{
 	Use:   "migration",
-	Short: "Create a migration file, example: make migration add_users_table",
+	Short: "Create a migration file, example: make migration add_users_table users",
 	Run:   runMakeMigration,
 	Args:  cobra.ExactArgs(2), // 只允许且必须传 1 个参数
 }
