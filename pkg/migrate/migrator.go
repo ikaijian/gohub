@@ -52,8 +52,8 @@ func (migrator *Migrator) Up() {
 	batch := migrator.getBatch()
 
 	// 获取所有迁移数据
-	migrations := []Migration{}
-	migrator.DB.Find(&migrations)
+	migrations := getLastMigrationFind()
+	//migrator.DB.Find(&migrations)
 
 	// 可以通过此值来判断数据库是否已是最新
 	runed := false
