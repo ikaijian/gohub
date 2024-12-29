@@ -75,6 +75,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		cgcGroup := v1.Group("/categories")
 		{
 			cgcGroup.POST("/add", middlewares.AuthJWT(), cgc.Store)
+			cgcGroup.PUT("/update/:id", middlewares.AuthJWT(), cgc.Update)
 		}
 	}
 
