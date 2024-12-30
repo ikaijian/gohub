@@ -287,6 +287,25 @@ MailHog
 + 使用 make seed 创建分类填充；
 + 使用 seed 命令填充数据；
 + 使用 make apicontroller 创建控制器；
-+ 开发分类 CRUD 接口。
++ 开发分类 CRUD 接口
+
+### 第十四章 话题
+
+#### 本章知识点：
+
++ 设置模型关联
++ 读取模型关联数据
++ 编辑话题时只允许作者
++ 创建了 make policy 命令
++ 删除话题时只允许作者
+
+#### 推荐资料：
+
++ [预加载《GORM 中文文档》](https://learnku.com/docs/gorm/v2/preload/9741)
++ [Belongs To《GORM 中文文档》](https://learnku.com/docs/gorm/v2/belongs_to/9736)
++ [Has One《GORM 中文文档》](https://learnku.com/docs/gorm/v2/has_one/9737)
++ [Has Many《GORM 中文文档》](https://learnku.com/docs/gorm/v2/has_many/9738)
++ [Many To Many](https://learnku.com/docs/gorm/v2/many_to_many/9739)
++ [实体关联《GORM 中文文档》](https://learnku.com/docs/gorm/v2/associations/9740)
 
 
