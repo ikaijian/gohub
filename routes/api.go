@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gohub/app/http/controllers/api/v1/auth"
 	categoryCtl "gohub/app/http/controllers/api/v1/category"
+	linkCtl "gohub/app/http/controllers/api/v1/link"
 	topicCtl "gohub/app/http/controllers/api/v1/topic"
 	userCtl "gohub/app/http/controllers/api/v1/user"
 	"gohub/app/middlewares"
@@ -90,6 +91,14 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			tpcGroup.POST("/add", middlewares.AuthJWT(), tpc.Store)
 			tpcGroup.PUT("/update/:id", middlewares.AuthJWT(), tpc.Update)
 			tpcGroup.DELETE("/delete/:id", middlewares.AuthJWT(), tpc.Delete)
+		}
+
+		// link友情链接
+		lkc := new(linkCtl.LinksController)
+		lcGroup := v1.Group("/topics")
+		{
+			lcGroup.GET("/list", lkc.Index)
+
 		}
 	}
 

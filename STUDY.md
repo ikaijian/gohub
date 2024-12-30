@@ -128,7 +128,11 @@
 ~~~
 
 ~~~go
-
+lsc := new(controllers.LinksController)
+linksGroup := v1.Group("/links")
+{
+linksGroup.GET("", lsc.Index)
+}
 ~~~
 
 ~~~go
