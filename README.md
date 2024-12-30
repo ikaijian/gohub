@@ -308,4 +308,23 @@ MailHog
 + [Many To Many](https://learnku.com/docs/gorm/v2/many_to_many/9739)
 + [实体关联《GORM 中文文档》](https://learnku.com/docs/gorm/v2/associations/9740)
 
+### 第十五章 友情链接
+
+#### 本章知识点：
+
++ 创建友情链接模型；
++ 创建友情链接迁移；
++ 创建友情链接数据工厂；
++ 创建友情链接数据填充；
++ 缓存包的设计；
++ 使用 Go interface 来做缓存存储的抽象化；
++ 缓存与业务逻辑使用不同数据库；
++ link.AllCached() 优先加载缓存；
++ cache clear 命令，清空缓存；
++ cache forget 命令，删除单条缓存。
+
+#### 推荐资料：
+
++ 使用[redis库]( github.com/go-redis/redis) ，阅读其文档，尝试阅读其源码。
+
 
