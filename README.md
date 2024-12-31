@@ -340,11 +340,11 @@ MailHog
 
 #### 推荐资料：
 
-+ 图片裁切库可以深入了解一下 github.com/disintegration/imaging
-+ 单文件上传《Gin 框架中文文档》
-+ 多文件上传《Gin 框架中文文档》
-+ POST 表单中的 URL 参数
-+ 映射查询字符串或表单参数
-+ 绑定表单数据至自定义结构体
++ [图片裁切库](github.com/disintegration/imaging)可以深入了解一下 
++ [单文件上传《Gin 框架中文文档》](https://learnku.com/docs/gin-gonic/1.7/examples-upload-file-single-file/11372)
++ [多文件上传《Gin 框架中文文档》](https://learnku.com/docs/gin-gonic/1.7/examples-upload-file-multiple-file/11373)
++ [POST 表单中的 URL 参数](https://learnku.com/docs/gin-gonic/1.7/examples-query-and-post-form/11369)
++ [映射查询字符串或表单参数](https://learnku.com/docs/gin-gonic/1.7/examples-map-as-querystring-or-postform/11387)
++ [绑定表单数据至自定义结构体](https://learnku.com/docs/gin-gonic/1.7/examples-bind-form-data-request-with-custom-struct/11393)
 
 
