@@ -8,6 +8,7 @@ require (
 	github.com/alibabacloud-go/tea v1.2.2
 	github.com/alibabacloud-go/tea-utils v1.4.5
 	github.com/bxcodec/faker/v3 v3.8.1
+	github.com/disintegration/imaging v1.6.2
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/gin-gonic/gin v1.10.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
