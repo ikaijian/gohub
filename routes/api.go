@@ -70,6 +70,7 @@ func RegisterAPIRoutes(r *gin.Engine) {
 		userGroup := v1.Group("/users")
 		{
 			userGroup.GET("/list", middlewares.AuthJWT(), uc.Index)
+			userGroup.PUT("/update", middlewares.AuthJWT(), uc.UpdateProfile)
 		}
 
 		// 分类
